@@ -8,43 +8,49 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden; /* Prevent scroll bars */
 }
 
 .container {
     background: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    width: 300px;
+    width: 350px; /* Slightly wider container */
+    position: relative; /* For absolute positioning of background image */
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 26px; /* Larger font size for better visibility */
     margin-bottom: 20px;
+    color: #4CAF50; /* Green color to match the button */
 }
 
 label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 12px 0 6px; /* Increased spacing for clarity */
+    font-weight: bold; /* Emphasize labels */
 }
 
 input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
+    width: calc(100% - 22px); /* Adjusted to fit container */
+    padding: 12px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px; /* More rounded corners */
+    font-size: 14px; /* Slightly larger font size for readability */
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     background: #4CAF50;
     color: white;
-    font-size: 16px;
+    font-size: 18px; /* Larger font size */
     cursor: pointer;
+    transition: background 0.3s ease; /* Smooth transition effect */
 }
 
 button:hover {
@@ -56,18 +62,21 @@ button:hover {
 }
 
 #result p {
-    margin: 10px 0;
+    margin: 12px 0; /* Increased spacing for clarity */
+    font-size: 14px; /* Consistent font size for readability */
 }
 
 #result h2 {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Increased spacing below the header */
+    font-size: 22px; /* Slightly larger header font */
+    color: #4CAF50; /* Green color to match the button */
 }
 
 /* Adding cute images */
 .container:before {
     content: '';
     background: url('cute-background.png') no-repeat center center;
-    background-size: contain;
+    background-size: cover; /* Adjust to cover entire container */
     position: absolute;
     top: 0;
     left: 0;
@@ -76,3 +85,4 @@ button:hover {
     opacity: 0.1;
     z-index: -1;
 }
+
