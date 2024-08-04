@@ -1,19 +1,31 @@
 document.getElementById('cycle-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const periodDays = parseInt(document.getElementById('period-days').value);
-    const cycleDays = parseInt(document.getElementById('cycle-days').value);
+    // Get user input values
+    const periodDays = parseInt(document.getElementById('period-days').value, 10);
+    const cycleDays = parseInt(document.getElementById('cycle-days').value, 10);
     const lastPeriodStartDate = document.getElementById('last-period-start').value;
     const lastPeriodEndDate = document.getElementById('last-period-end').value;
+
+    // Validate inputs
+    if (isNaN(periodDays) || isNaN(cycleDays) || !lastPeriodStartDate || !lastPeriodEndDate) {
+        alert("Please ensure all fields are filled out correctly.");
+        return;
+    }
+
+    if (periodDays < 1 || periodDays > 7 || cycleDays < 25 || cycleDays > 30) {
+        alert("Please ensure period days are between 1-7 and cycle days are between 25-30.");
+        return;
+    }
 
     const nextPeriodStart = calculateNextPeriod(lastPeriodStartDate, cycleDays);
     const currentDate = new Date().toISOString().split('T')[0];
     const currentPhase = getCurrentPhase(lastPeriodStartDate, currentDate, cycleDays);
     const phaseInfo = getPhaseInfo(currentPhase);
 
+    // Update the results
     document.getElementById('next-period').textContent = `Your next period is expected to start on: ${nextPeriodStart}`;
-    document.getElementById('current-phase').textContent = `Today's date: ${currentDate}`;
-    document.getElementById('current-phase').textContent += `\nCurrent phase: ${currentPhase}`;
+    document.getElementById('current-phase').textContent = `Today's date: ${currentDate}\nCurrent phase: ${currentPhase}`;
 
     document.getElementById('phase-symptoms').textContent = `Symptoms: ${phaseInfo.symptoms.join(', ')}`;
     document.getElementById('phase-food').textContent = `Recommended food: ${phaseInfo.food.join(', ')}`;
@@ -41,7 +53,7 @@ function trackMenstruationPhase(cycleDay) {
         return "Menstrual phase";
     } else if (6 <= cycleDay && cycleDay <= 14) {
         return "Follicular phase";
-    } else if (14 <= cycleDay && cycleDay <= 16) {
+    } else if (15 <= cycleDay && cycleDay <= 16) {
         return "Ovulation phase";
     } else if (17 <= cycleDay && cycleDay <= 28) {
         return "Luteal phase";
@@ -79,3 +91,4 @@ function getPhaseInfo(phase) {
     };
     return phaseInfo[phase] || {};
 }
+
