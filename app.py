@@ -1,18 +1,48 @@
 from datetime import datetime, timedelta
 
 def get_user_input():
-    period_days = int(input("Enter the number of period days: "))
-    cycle_days = int(input("Enter the length of your menstruation cycle in days: "))
-    last_period_start_date = input("Enter the start date of your last period (YYYY-MM-DD): ")
-    last_period_end_date = input("Enter the end date of your last period (YYYY-MM-DD): ")
+    while True:
+        try:
+            period_days = int(input("Enter the number of period days (1-7): "))
+            if period_days < 1 or period_days > 7:
+                raise ValueError("Number of period days must be between 1 and 7.")
+            
+            cycle_days = int(input("Enter the length of your menstruation cycle in days (25-30): "))
+            if cycle_days < 25 or cycle_days > 30:
+                raise ValueError("Cycle length must be between 25 and 30 days.")
+            
+            last_period_start_date = input("Enter the start date of your last period (YYYY-MM-DD): ")
+            last_period_end_date = input("Enter the end date of your last period (YYYY-MM-DD): ")
+            
+            # Validate date formats and calculate the difference
+            try:
+                start_date = datetime.strptime(last_period_start_date, "%Y-%m-%d")
+                end_date = datetime.strptime(last_period_end_date, "%Y-%m-%d")
+                if end_date < start_date:
+                    raise ValueError("End date must be after start date.")
+                
+                # Check the difference between dates (inclusive of start and end date)
+                delta = (end_date - start_date).days + 1
+                if delta != period_days:
+                    raise ValueError(f"The period should be exactly {period_days} days long, including both start and end dates.")
+            
+            except ValueError as e:
+                print(f"Invalid date format or logical error: {e}")
+                continue
+            
+            # If all inputs are valid, break out of the loop
+            break
+        except ValueError as e:
+            print(f"Invalid input: {e}")
     
     return period_days, cycle_days, last_period_start_date, last_period_end_date
 
 def calculate_next_period(last_period_start_date, cycle_days):
-    last_period_start = datetime.strptime(last_period_start_date, "%Y-%m-%d").date()
+    # Ensure the input date is a string and convert it to datetime
+    last_period_start = datetime.strptime(last_period_start_date, "%Y-%m-%d")
     next_period_start = last_period_start + timedelta(days=cycle_days)
     
-    return next_period_start
+    return next_period_start.date()
 
 def track_menstruation_phase(cycle_day):
     if 1 <= cycle_day <= 5:
