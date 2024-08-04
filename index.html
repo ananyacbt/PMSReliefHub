@@ -10,17 +10,17 @@
     <div class="container">
         <h1>Menstruation Cycle Tracker</h1>
         <form id="cycle-form">
-            <label for="period-days">Number of Period Days:</label>
-            <input type="number" id="period-days" required>
+            <label for="period-days">Number of Period Days (1-7):</label>
+            <input type="number" id="period-days" name="period-days" min="1" max="7" required>
 
-            <label for="cycle-days">Length of Menstruation Cycle (days):</label>
-            <input type="number" id="cycle-days" required>
+            <label for="cycle-days">Length of Menstruation Cycle (25-30 days):</label>
+            <input type="number" id="cycle-days" name="cycle-days" min="25" max="30" required>
 
             <label for="last-period-start">Start Date of Last Period (YYYY-MM-DD):</label>
-            <input type="date" id="last-period-start" required>
+            <input type="date" id="last-period-start" name="last-period-start" required>
 
             <label for="last-period-end">End Date of Last Period (YYYY-MM-DD):</label>
-            <input type="date" id="last-period-end" required>
+            <input type="date" id="last-period-end" name="last-period-end" required>
 
             <button type="submit">Submit</button>
         </form>
@@ -38,3 +38,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
